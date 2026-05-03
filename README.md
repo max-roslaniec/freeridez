@@ -1,159 +1,183 @@
-# Turborepo starter
+# FreeRidez 🏍️
 
-This Turborepo starter is maintained by the Turborepo core team.
+> **"Sem patrão. Só você e a rua."**
 
-## Using this example
+Plataforma web de controle financeiro gamificado para entregadores e motoristas de aplicativo. Registre corridas, acompanhe gastos, bata metas e evolua financeiramente — do seu jeito.
 
-Run the following command:
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=flat-square&logo=typescript)](https://www.typescriptlang.org)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.x-06B6D4?style=flat-square&logo=tailwindcss)](https://tailwindcss.com)
+[![Vercel](https://img.shields.io/badge/Deploy-Vercel-black?style=flat-square&logo=vercel)](https://vercel.com)
+[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 
-```sh
-npx create-turbo@latest
+**[🌐 Demo ao vivo](https://freeridez.vercel.app)** · **[📖 Documentação](docs/ARCHITECTURE.md)** · **[🐛 Reportar bug](https://github.com/seuuser/freeridez/issues)**
+
+---
+
+## 📸 Screenshots
+
+| Hero | Features | Pricing |
+|---|---|---|
+| ![Hero](docs/screenshots/hero.png) | ![Features](docs/screenshots/features.png) | ![Pricing](docs/screenshots/pricing.png) |
+
+---
+
+## 🎯 Sobre o Projeto
+
+Entregadores e motoristas de app trabalham por conta própria, mas raramente têm controle real sobre seus ganhos. FreeRidez resolve isso:
+
+- **Sem burocracia** — abre e já usa, sem cadastro obrigatório
+- **Offline first** — funciona sem internet, dados salvos localmente
+- **Gamificado** — metas, milestones e conquistas que motivam
+- **Acessível** — gratuito para sempre, Pro para quem quer mais
+
+---
+
+## 🚀 Stack Tecnológica
+
+### Frontend
+| Tech | Função |
+|---|---|
+| **Next.js 16** | Framework React com App Router, SSR/SSG |
+| **TypeScript 5** | Tipagem estática end-to-end |
+| **Tailwind CSS 3** | Estilização utility-first |
+| **Framer Motion** | Animações e transições |
+| **Recharts** | Gráficos responsivos |
+| **Dexie.js** | IndexedDB para armazenamento offline |
+| **Zustand** | Estado global |
+| **TanStack Query** | Cache e sync com API (Pro) |
+| **next-auth** | Autenticação (Google + email) |
+
+### Backend
+| Tech | Função |
+|---|---|
+| **NestJS** | API REST modular TypeScript-first |
+| **PostgreSQL** | Banco de dados relacional |
+| **Prisma** | ORM com migrations |
+| **Passport.js + JWT** | Autenticação segura |
+| **Stripe** | Pagamentos e assinaturas |
+| **Helmet.js** | Headers de segurança |
+
+### Infraestrutura
+| Serviço | Função |
+|---|---|
+| **Vercel** | Deploy frontend com CI/CD automático |
+| **Railway** | Deploy backend + PostgreSQL |
+| **GitHub Actions** | CI: lint, type-check, tests |
+| **Sentry** | Error tracking |
+
+---
+
+## ✨ Funcionalidades
+
+### Plano Free (sem conta)
+- [x] Registro rápido de corridas e gastos
+- [x] Dashboard com bruto / líquido / gastos
+- [x] 1 veículo, 1 meta ativa
+- [x] Histórico dos últimos 7 dias
+- [x] 100% offline (IndexedDB)
+- [x] Fechar o dia (modo retroativo)
+
+### Plano Pro (R$9,90/mês)
+- [ ] Dados sincronizados na nuvem
+- [ ] Múltiplos veículos e metas
+- [ ] Histórico ilimitado
+- [ ] Análise avançada + heatmap de horários
+- [ ] Comparativo dias de chuva vs sol
+- [ ] Exportar PDF (comprovante de renda)
+- [ ] Sem anúncios
+
+---
+
+## 🛠️ Como rodar localmente
+
+### Pré-requisitos
+- Node.js 18+
+- Docker e Docker Compose
+
+### Setup
+
+```bash
+# 1. Clone o repositório
+git clone https://github.com/seuuser/freeridez.git
+cd freeridez
+
+# 2. Instale as dependências
+npm install
+
+# 3. Configure as variáveis de ambiente
+cp apps/web/.env.example apps/web/.env.local
+cp apps/api/.env.example apps/api/.env
+
+# 4. Suba o banco de dados
+docker compose up -d
+
+# 5. Execute as migrations
+cd apps/api
+npx prisma migrate dev
+
+# 6. Rode o projeto
+cd ../..
+npm run dev
 ```
 
-## What's inside?
+A landing page estará em `http://localhost:3000` e a API em `http://localhost:3001`.
 
-This Turborepo includes the following packages/apps:
+---
 
-### Apps and Packages
+## 📁 Estrutura do Projeto
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo build
+```
+freeridez/
+├── apps/
+│   ├── web/          # Next.js (Landing page + App)
+│   └── api/          # NestJS API
+├── packages/
+│   ├── types/        # TypeScript compartilhado
+│   ├── validators/   # Schemas Zod
+│   └── config/       # Configs compartilhadas
+├── docs/             # Documentação
+└── turbo.json
 ```
 
-Without global `turbo`, use your package manager:
+---
 
-```sh
-cd my-turborepo
-npx turbo build
-npm dlx turbo build
-npm exec turbo build
-```
+## 🔒 Segurança
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+- Content Security Policy (CSP) configurado
+- JWT em cookies HttpOnly (não localStorage)
+- Rate limiting com @nestjs/throttler
+- Senhas com bcrypt (salt ≥ 12)
+- Stripe Webhook Signature Verification
+- CORS explicitamente configurado
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+---
 
-```sh
-turbo build --filter=docs
-```
+## 🚢 Deploy
 
-Without global `turbo`:
+### Frontend (Vercel)
+1. Faça fork do repositório
+2. Importe no [Vercel](https://vercel.com)
+3. Configure `Root Directory` para `apps/web`
+4. Adicione as variáveis de ambiente
+5. Deploy automático a cada push na `main`
 
-```sh
-npx turbo build --filter=docs
-npm exec turbo build --filter=docs
-npm exec turbo build --filter=docs
-```
+### Backend (Railway)
+1. Crie um projeto no [Railway](https://railway.app)
+2. Adicione PostgreSQL e Redis
+3. Configure `Root Directory` para `apps/api`
+4. Adicione as variáveis de ambiente
 
-### Develop
+---
 
-To develop all apps and packages, run the following command:
+## 📄 Licença
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+MIT — veja [LICENSE](LICENSE) para detalhes.
 
-```sh
-cd my-turborepo
-turbo dev
-```
+---
 
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo dev
-npm exec turbo dev
-npm exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo dev --filter=web
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo dev --filter=web
-npm exec turbo dev --filter=web
-npm exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo login
-npm exec turbo login
-npm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-npm exec turbo link
-npm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+<div align="center">
+  Feito com ❤️ para quem vive na rua.
+  <br />
+  <strong>FreeRidez — Sem patrão. Só você e a rua.</strong>
+</div>
